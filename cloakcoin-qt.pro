@@ -35,9 +35,9 @@ message(LIBS = $$LIBS)
 # setup windows specific libs, using msys mingw x-compile environment
 win32 {
     message(*** win32 build ***)
-    #LIBS += -L$$PWD/ex_lib/libcurl -lcurldll
-    LIBS += C:\deps\curl-7.40.0\lib\.libs\libcurl.dll.a
-	LIBS += $$PWD/src/leveldb/lib/win/x86/libleveldb.a $$PWD/src/leveldb/lib/win/x86/libmemenv.a
+    LIBS += -L$$PWD/ex_lib/libcurl -lcurldll
+    #LIBS += C:\deps\curl-7.40.0\lib\libcurl.dll.a
+    LIBS += $$PWD/src/leveldb/lib/win/x86/libleveldb.a $$PWD/src/leveldb/lib/win/x86/libmemenv.a
 
     INCLUDEPATH+=C:\deps\curl-7.40.0\include
     INCLUDEPATH+=C:\deps\libevent-2.0.21-stable\include
@@ -130,8 +130,8 @@ contains(RELEASE, 1) {
     #macx:QMAKE_LFLAGS += -no_weak_imports
 
     !windows:!macx {
-	# Linux: static link
-	LIBS += -Wl,-Bstatic
+        # Linux: static link
+        LIBS += -Wl,-Bstatic
     }
 }
 
@@ -152,9 +152,9 @@ win32:QMAKE_LFLAGS *= -Wl,--large-address-aware
 contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
-	!contains(USE_MXE, 1) {
-		LIBS += -lqrencode
-	}
+        !contains(USE_MXE, 1) {
+                LIBS += -lqrencode
+        }
 }
 
 LIBS += -levent
@@ -170,7 +170,7 @@ contains(USE_UPNP, -) {
 } else {
     message(Building with UPNP support)
     count(USE_UPNP, 0) {
-	USE_UPNP=1
+        USE_UPNP=1
     }
     INCLUDEPATH += $$PWD/src
     win32:INCLUDEPATH += C:/deps/miniupnpc
@@ -179,7 +179,7 @@ contains(USE_UPNP, -) {
     win32:LIBS += C:/deps/miniupnpc/libminiupnpc.a
     macx:LIBS += /usr/local/lib/libminiupnpc.a
     !windows:!macx{
-	LIBS += -lminiupnpc
+        LIBS += -lminiupnpc
     }
     win32:LIBS += -liphlpapi
 }
@@ -200,7 +200,7 @@ contains(USE_IPV6, -) {
 } else {
     message(Building with IPv6 support)
     count(USE_IPV6, 0) {
-	USE_IPV6=1
+        USE_IPV6=1
     }
     DEFINES += USE_IPV6=$$USE_IPV6
 }
@@ -721,7 +721,7 @@ message($$QMAKE_LRELEASE)
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
     doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc src/test/*.cpp src/test/*.h src/qt/test/*.cpp src/qt/test/*.h \
-	src/qt/locale/*.ts
+        src/qt/locale/*.ts
 
 # platform specific defaults, if not overridden on command line
 
@@ -788,8 +788,8 @@ windows:LIBS += -lboost_chrono$$BOOST_LIB_SUFFIX
 
 contains(RELEASE, 1) {
     !windows:!macx {
-	# Linux: turn dynamic linking back on for c/c++ runtime libraries
-	LIBS += -Wl,-Bdynamic
+        # Linux: turn dynamic linking back on for c/c++ runtime libraries
+        LIBS += -Wl,-Bdynamic
     }
 }
 
